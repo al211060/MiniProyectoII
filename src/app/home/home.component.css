@@ -1,0 +1,38 @@
+.carousel{
+    background-color: rgba(87, 79, 95, 0.555);
+}
+.carousel-inner{
+    width: 75vw;
+    margin: auto;
+}
+.menu-section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+    padding: 5%;
+    background-color: #b8495c;
+}
+.menu-info{
+    color: white;
+    text-shadow: 0.1rem 0.2rem black;
+}
+.menuBtn{
+    height: 35vh;
+}
+.row{
+    padding: 2.5%;
+}
+.horarios{
+    text-align: center;
+}
+.direccion{
+    display: flex;
+    justify-content: space-around;
+}
+.direccion img{
+    width: 20vw;
+}
+.direccion .datos{
+    text-align: center;
+}
