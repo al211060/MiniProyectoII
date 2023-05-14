@@ -16,12 +16,12 @@
             <a class="nav-link" routerLink="/reservar">Reservar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" >Noticias</a>
+            <a class="nav-link" routerLink="/noticias">Musica</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input id="buscar" autocomplete="off" class="form-control me-2" type="search" placeholder="Buscar Platillo" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit" (click)="buscar()">Buscar</button>
         </form>
       </div>
     </div>

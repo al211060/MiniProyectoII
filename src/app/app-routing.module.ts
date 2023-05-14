@@ -4,12 +4,16 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { AboutComponent } from './about/about.component';
 import { ReservarComponent } from './reservar/reservar.component';
+import { NoticiasComponent } from './noticias/noticias.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "menu", component: MenuComponent },
   { path: "about", component: AboutComponent },
   { path: "reservar", component: ReservarComponent },
+  { path: "noticias", component: NoticiasComponent },
+  { path: 'busqueda/:item', component: BusquedaComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", redirectTo: "/home" }
 ];

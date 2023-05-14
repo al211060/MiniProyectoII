@@ -1,5 +1,4 @@
 footer{
-    height: 30vh;
     padding-bottom: 2%;
     background-color: rgb(33,37,41);
     color: rgba(255, 255, 255, 0.55);
@@ -18,4 +17,7 @@ img{
     align-items: flex-start;
     flex-direction: column;
     font-size: 1.5rem;
+}
+.enviar{
+    font-size: 2.25rem;
 }

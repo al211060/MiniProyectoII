@@ -3,22 +3,19 @@
       <div class="carousel-item active" data-bs-interval="2500">
         <img src="assets/img/Slide1.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
+          <p>Los has visto en la pantalla ahora pruebalos.</p>
         </div>
       </div>
       <div class="carousel-item" data-bs-interval="2500">
         <img src="assets/img/Slide2.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
+          <p>Visita nuestras Instalaciones.</p>
         </div>
       </div>
       <div class="carousel-item" data-bs-interval="2500">
         <img src="assets/img/Slide3.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
+          <p>Un lugar para encontrar personas con gustos similares.</p>
         </div>
       </div>
     </div>
@@ -27,18 +24,18 @@
     <div class="menu-info">
         <h1>Menu</h1>
         <p>Sumergete en nuestra gran variedad de alimentos y bebidas inspiradas en tus animes favoritos</p>
-        <a routerLink="/menu"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a>
+        <a routerLink="/menu"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
     </div>
     <a routerLink="/menu"><img class="menuBtn" src="assets/img/MenuDojo.png" alt=""></a>
 </div>
-<div class="row">
+<div class="row rowDatos">
     <div class="col-sm-4">
       <div class="card text-bg-secondary">
-        <div class="card-body horarios">
+        <div class="card-body horario">
           <h5 class="card-title">Horarios</h5>
-          <p class="card-text">Lunes a Viernes: 8:00am - 10:00pm</p>
-          <p class="card-text">Sabado: 10:00am - 7:00pm</p>
-          <a routerLink="/home" class="btn btn-primary">Go somewhere</a>
+          <p class="card-text">Lunes a Sabado: </p>
+          <p class="card-text">8:00am - 10:00pm</p>
+          <a routerLink="/reservar" class="btn btn-primary">Reservar Mesa</a>
         </div>
       </div>
     </div>
@@ -49,10 +46,9 @@
             <h5 class="card-title">Direccion</h5>
             <p class="card-text">5960 Hartmann Camp</p>
             <p class="card-text">88668, Noramouth</p>
-            <a routerLink="/home" class="btn btn-primary">Go somewhere</a>
           </div>
           <div>
-            <img src="assets/img/map.png" alt="">
+            <app-ol-map [lat]="21.906057" [lon]="-102.323301" [zoom]="15" width="20vw" height="20vw"></app-ol-map>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 .contenedor{
-    width: 75%;
+    width: 90%;
     background-color: rgba(250, 235, 215, 0.233);
     margin: 2.5% auto 0 auto;
-    padding: 2%;
+    padding: 2% 20%;
     color: white;
     text-shadow: 0.1rem 0.2rem black;
     text-align: center;
@@ -15,4 +15,16 @@ img{
 }
 .personaI{
     text-align: end;
+}
+h1{
+    font-size: 1.75rem;
+}
+h2{
+    font-size: 1.5rem;
+}
+h3{
+    font-size: 1.25rem;
+}
+p{
+    font-size: 1.15rem;
 }

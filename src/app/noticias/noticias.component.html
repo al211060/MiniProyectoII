@@ -1,0 +1,10 @@
+<div class="contenedor">
+    <h1>Musica Destacada</h1>
+    <p>Escucha las canciones mas votadas de la semana</p>
+    <div class="videos">
+        <iframe width="560" height="315" [src]="video1 | domseguro:'https://www.youtube.com/embed/' " frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" [src]="video2 | domseguro:'https://www.youtube.com/embed/' " frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>

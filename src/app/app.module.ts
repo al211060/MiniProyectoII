@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import localeEs from "@angular/common/locales/es";
+import { registerLocaleData } from "@angular/common";
+registerLocaleData(localeEs, "es");
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +15,23 @@ import { AboutComponent } from './about/about.component';
 import { ListadoItemsComponent } from './listado-items/listado-items.component';
 import { ItemComponent } from './item/item.component';
 import { ReservarComponent } from './reservar/reservar.component';
-import { FormsModule } from '@angular/forms';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoticiasComponent } from './noticias/noticias.component';
+import { DomseguroPipe } from './domseguro.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
+
+
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {MatRippleModule} from '@angular/material/core';
+import {MatTableModule} from '@angular/material/table';
+import { OlMapComponent } from './ol-map/ol-map.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +43,29 @@ import { FormsModule } from '@angular/forms';
     AboutComponent,
     ListadoItemsComponent,
     ItemComponent,
-    ReservarComponent
+    ReservarComponent,
+    NoticiasComponent,
+    DomseguroPipe,
+    BusquedaComponent,
+    OlMapComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatRippleModule,
+    HttpClientModule,
+    MatTableModule
   ],
-  providers: [],
+  providers: [ {provide: LOCALE_ID, useValue: 'es-mx'} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

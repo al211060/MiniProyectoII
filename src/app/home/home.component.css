@@ -5,17 +5,25 @@
     width: 75vw;
     margin: auto;
 }
+p, h5{
+    font-size: 2rem;
+}
 .menu-section{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 50vh;
-    padding: 5%;
+    padding: 3%;
     background-color: #b8495c;
 }
 .menu-info{
     color: white;
     text-shadow: 0.1rem 0.2rem black;
+}
+.menu-info h1{
+    font-size: 2rem;
+}
+.menu-info p{
+    font-size: 1.5rem;
 }
 .menuBtn{
     height: 35vh;
@@ -23,8 +31,11 @@
 .row{
     padding: 2.5%;
 }
-.horarios{
-    text-align: center;
+.col-sm-4{
+    display: flex;
+}
+.horario{
+    align-content: stretch;
 }
 .direccion{
     display: flex;
@@ -37,5 +48,12 @@
     text-align: center;
 }
 i{
-    font-size: 5rem;
+    font-size: 3.5rem;
+    color:#993949;
+}
+.datos, .horario{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
 }

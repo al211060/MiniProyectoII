@@ -1,0 +1,15 @@
+<div class="contenedor">
+    <h1>Resultado de la Busqueda</h1>
+    <div class="card text-bg-dark">
+        <img [src]="item.imagen" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.nombre }}</h5>
+          <p class="card-text"><small class="text-muted">{{ item.precio }}</small></p>
+          <p class="card-text">{{ item.descripcion }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            <span class="disp" *ngIf="item.disponible; else noDisponible">Disponible</span>
+            <ng-template #noDisponible class="noDisp">No disponible</ng-template>
+        </div>
+    </div>
+</div>
