@@ -1,0 +1,16 @@
+<div class="card-columns">
+    <div class="col" *ngFor="let plato of platos" (click)="seleccionarPlato(plato)">
+      <div class="card text-bg-dark">
+        <img [src]="plato.imagen" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ plato.nombre }}</h5>
+          <p class="card-text"><small class="text-muted">{{ plato.precio }}</small></p>
+          <p class="card-text">{{ plato.descripcion }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            <span class="disp" *ngIf="plato.disponible; else noDisponible">Disponible</span>
+            <ng-template #noDisponible class="noDisp">No disponible</ng-template>
+        </div>
+      </div>
+    </div>
+</div>

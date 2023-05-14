@@ -1,1 +1,8 @@
-<p>menu works!</p>
+<div class="contenedor">
+    <div class="title">
+        <h1>Menu</h1>
+        <p>Seleccionar algun articulo para ver con mayor detalle</p>
+    </div>
+    <app-listado-items (platoSeleccionado)="mostrarPlato($event)"></app-listado-items>
+    <app-item [nombrePlato]="platoSeleccionado" [modalF]="seleccion"></app-item>
+</div>

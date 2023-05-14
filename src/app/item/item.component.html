@@ -1,0 +1,26 @@
+
+<button type="button" #openModalButton [hidden]="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="card text-bg-dark">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img [src]="nombrePlato.imagen" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ nombrePlato.nombre }}</h5>
+                  <p class="card-text"><small class="text-muted">{{ nombrePlato.precio }}</small></p>
+                  <p class="card-text">{{ nombrePlato.descripcion }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <span class="disp" *ngIf="nombrePlato.disponible; else noDisponible">Disponible</span>
+                    <ng-template #noDisponible class="noDisp">No disponible</ng-template>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+</div>

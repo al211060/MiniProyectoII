@@ -1,0 +1,13 @@
+.modal-body{
+    padding: 0;
+}
+.card{
+    border: solid 2px #c2185b;
+}
+.btn-close{
+    color: white;
+    text-align: end;
+}
+.disp{
+    color: green;
+}

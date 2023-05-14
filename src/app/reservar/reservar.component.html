@@ -1,0 +1,24 @@
+<div class="contenedor">
+    <div class="formulario">
+        <form (ngSubmit)="onSubmit()" #reservationForm="ngForm">
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" name="date" ngModel>
+            <br>
+            <label for="time">Hora:</label>
+            <input type="time" id="time" name="time" ngModel>
+            <br>
+            <button type="submit">Reservar</button>
+          </form>
+    </div>
+    <div class="reporte">
+        <h1>Reservaciones </h1>
+        <ul>
+            <li *ngFor="let reservation of reservations">
+                {{ reservation.date }} - {{ reservation.time }}
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="alertMessage" class="alert" [ngClass]="'alert-' + alertType" role="alert">
+        {{ alertMessage }}
+    </div>
+</div>

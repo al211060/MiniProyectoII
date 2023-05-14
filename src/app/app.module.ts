@@ -8,6 +8,10 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { AboutComponent } from './about/about.component';
+import { ListadoItemsComponent } from './listado-items/listado-items.component';
+import { ItemComponent } from './item/item.component';
+import { ReservarComponent } from './reservar/reservar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,15 @@ import { AboutComponent } from './about/about.component';
     FooterComponent,
     HomeComponent,
     MenuComponent,
-    AboutComponent
+    AboutComponent,
+    ListadoItemsComponent,
+    ItemComponent,
+    ReservarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

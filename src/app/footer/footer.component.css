@@ -1,5 +1,6 @@
 footer{
-    height: 20vh;
+    height: 30vh;
+    padding-bottom: 2%;
     background-color: rgb(33,37,41);
     color: rgba(255, 255, 255, 0.55);
     text-align: center;
@@ -7,4 +8,14 @@ footer{
 img{
     width: 15vw;
     margin: auto;
+}
+.contenedor{
+    display: flex;
+    justify-content: space-around;
+}
+.redes{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 1.5rem;
 }
