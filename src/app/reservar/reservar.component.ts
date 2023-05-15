@@ -32,6 +32,7 @@ export class ReservarComponent {
   constructor(private dateAdapter: DateAdapter<Date>){
     this.dateAdapter.setLocale('es-mx');
     this.calendarChange(this.selectedDate);
+    this.calendarChangeT(this.selectedDate2);
     const reservationsString = localStorage.getItem('reservations');
     this.reservations = reservationsString ? JSON.parse(reservationsString): [];
     for(let i=8; i<23; i++){
@@ -71,9 +72,26 @@ export class ReservarComponent {
     }
   }
 
+  horasLimite(){
+    for(let i=8; i<23; i++){
+      if(i>parseInt(formatDate(new Date(),"H","es"))){
+        this.horasDisp.push(i);
+      }
+    }
+  }
+
   calendarChange(event: any) {
     this.selectedDate = event;
+    var temp = formatDate(new Date(),"cccc d LLLL y","es").split(' ');
     var dateValue:any = formatDate(event,"cccc d LLLL y","es").split(' ');
+    this.horasDisp = [];
+    if(dateValue[1] === temp[1] && dateValue[2] === temp[2] && dateValue[3] === temp[3]){
+      //console.log("Current Day");
+      this.horasLimite();
+    }else{
+      //console.log("Not Today");
+      this.horasDisp = [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
+    }
     this.registro.diaNum = dateValue[1];
     this.registro.mes = dateValue[2];
     this.registro.año = dateValue[3];
@@ -133,6 +151,7 @@ export class ReservarComponent {
       localStorage.setItem('reservations', JSON.stringify(reservations));
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.success("Reservacion realizada con exito");
+      this.calendarChangeT(this.selectedDate2);
     }
   }
 

@@ -5,6 +5,9 @@
     width: 75vw;
     margin: auto;
 }
+.carousel p{
+    font-size: 1.25rem;
+}
 p, h5{
     font-size: 2rem;
 }
