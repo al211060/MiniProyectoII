@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import localeEs from "@angular/common/locales/es";
@@ -32,6 +32,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import { OlMapComponent } from './ol-map/ol-map.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,13 @@ import { OlMapComponent } from './ol-map/ol-map.component';
     MatButtonModule,
     MatRippleModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [ {provide: LOCALE_ID, useValue: 'es-mx'} ],
   bootstrap: [AppComponent]
