@@ -11,7 +11,7 @@
           </div>
           <div class="form-group">
             <label>Contraseña:</label>
-            <input type="password" class="form-control" required>
+            <input type="password" class="form-control" [(ngModel)]="password" placeholder="Contraseña" name="password" required>
           </div>
           <button type="submit" class="btn btn-primary">Iniciar sesión</button>
           <div *ngIf="loginError" class="alert alert-danger mt-3">
