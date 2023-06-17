@@ -1,9 +1,16 @@
 import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import localeEs from "@angular/common/locales/es";
 import { registerLocaleData } from "@angular/common";
 registerLocaleData(localeEs, "es");
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../app/environments/environment';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore/lite';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +40,19 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import { OlMapComponent } from './ol-map/ol-map.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoginComponent } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCrevB-Lu7HsbzG3Yo0aDJobtf0YqYohyg",
+  authDomain: "proyecto-final-14c28.firebaseapp.com",
+  projectId: "proyecto-final-14c28",
+  storageBucket: "proyecto-final-14c28.appspot.com",
+  messagingSenderId: "705320024254",
+  appId: "1:705320024254:web:e2563873cc707f5a1f06ef",
+  measurementId: "G-EKP7YJCP5Z"
+};
 
 @NgModule({
   declarations: [
@@ -48,7 +68,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NoticiasComponent,
     DomseguroPipe,
     BusquedaComponent,
-    OlMapComponent
+    OlMapComponent,
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +87,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatRippleModule,
     HttpClientModule,
     MatTableModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
@@ -72,7 +96,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [ {provide: LOCALE_ID, useValue: 'es-mx'} ],
+  providers: [ 
+    {provide: LOCALE_ID, useValue: 'es-mx'},
+    // Proporciona la instancia de la aplicación Firebase
+    { provide: 'firebase-config', useValue: firebaseConfig },
+    { provide: 'firebase-app', useFactory: () => initializeApp(firebaseConfig) },
+    // Proporciona el servicio de Firestore
+    { provide: 'firestore', useFactory: () => getFirestore() }, 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

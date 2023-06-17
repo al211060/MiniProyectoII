@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="card bg-light mt-5">
+      <div class="card-body">
+        <h2 class="card-title">Iniciar sesión</h2>
+        <form (ngSubmit)="signIn()">
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" 
+                    name="email" [(ngModel)]="email" required class="form-control"
+                >
+          </div>
+          <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+          <div *ngIf="loginError" class="alert alert-danger mt-3">
+            Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<div *ngIf="loginError" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+</div>
+
+<br>
+<br>
+<br>

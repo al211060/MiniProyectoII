@@ -6,6 +6,8 @@ import { AboutComponent } from './about/about.component';
 import { ReservarComponent } from './reservar/reservar.component';
 import { NoticiasComponent } from './noticias/noticias.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { LoginComponent } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: "reservar", component: ReservarComponent },
   { path: "noticias", component: NoticiasComponent },
   { path: 'busqueda/:item', component: BusquedaComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'registro', component: RegistroComponent},
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", redirectTo: "/home" }
 ];

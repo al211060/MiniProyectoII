@@ -23,6 +23,15 @@
           <input id="buscar" autocomplete="off" class="form-control me-2" type="search" placeholder="Buscar Platillo" aria-label="Search">
           <button class="btn btn-outline-success" type="submit" (click)="buscar()">Buscar</button>
         </form>
+        <span> | </span>
+        <span> | </span>
+
+        <button type="button" class="btn btn-secondary" *ngIf="authService.isLoggedIn()" (click)="logout()">Cerrar Sesion</button>
+        <button type="button" class="btn btn-success" *ngIf="!authService.isLoggedIn()" routerLink="/login">Iniciar Sesion</button>
+        <span> | </span>
+        <span> | </span>
+        <button type="button" class="btn btn-success" *ngIf="!authService.isLoggedIn()" routerLink="/registro">Registrarse</button>
+        <!--<button type="button" class="btn btn-danger" *ngIf="IsLoggedIn() && IsAdmin()">Admin</button>-->
       </div>
     </div>
   </nav>
