@@ -44,6 +44,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ReporteComponent } from './reporte/reporte.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductosService } from './productos.service';
 
 
 const firebaseConfig = {
@@ -73,7 +75,8 @@ const firebaseConfig = {
     OlMapComponent,
     LoginComponent,
     RegistroComponent,
-    ReporteComponent
+    ReporteComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ const firebaseConfig = {
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [ 
+  providers: [
+    ProductosService, 
     {provide: LOCALE_ID, useValue: 'es-mx'},
     // Proporciona la instancia de la aplicación Firebase
     { provide: 'firebase-config', useValue: firebaseConfig },
