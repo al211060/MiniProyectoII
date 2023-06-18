@@ -51,7 +51,7 @@ export class AuthService {
 
   isAdmin(): boolean {
     // Define una lista de correos electrónicos de usuarios administradores
-    const adminEmails = ['admin@example.com', 'admin2@example.com'];
+    const adminEmails = ['admin@gmail.com', 'alex.flores6651@gmail.com'];
   
     // Comprueba si el correo electrónico del usuario actual está en la lista de administradores
     return this.isLoggedIn() && adminEmails.includes(this.user?.email || '');

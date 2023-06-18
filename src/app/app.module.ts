@@ -34,6 +34,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
@@ -42,6 +43,7 @@ import { OlMapComponent } from './ol-map/ol-map.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 const firebaseConfig = {
@@ -70,7 +72,8 @@ const firebaseConfig = {
     BusquedaComponent,
     OlMapComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ const firebaseConfig = {
     MatNativeDateModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatInputModule,
     MatButtonModule,
     MatRippleModule,
     HttpClientModule,

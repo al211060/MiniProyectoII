@@ -8,12 +8,14 @@ import { NoticiasComponent } from './noticias/noticias.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "menu", component: MenuComponent },
   { path: "about", component: AboutComponent },
   { path: "reservar", component: ReservarComponent },
+  { path: "reporte", component: ReporteComponent },
   { path: "noticias", component: NoticiasComponent },
   { path: 'busqueda/:item', component: BusquedaComponent },
   { path: 'login', component: LoginComponent},

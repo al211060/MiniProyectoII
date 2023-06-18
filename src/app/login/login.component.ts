@@ -22,12 +22,13 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
+  /*
   signIn() {
     this.authService.signIn(this.email, this.password);
-  }
+  }*/
 
 
-  /*
+  
   signIn() {
     this.authService.signIn(this.email, this.password)
       .then(() => {
@@ -45,7 +46,7 @@ export class LoginComponent {
       });
   }
   
-  */
+  
 
 
   logout(): void {

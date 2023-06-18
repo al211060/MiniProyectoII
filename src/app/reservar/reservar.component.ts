@@ -10,6 +10,7 @@ import * as alertifyjs from 'alertifyjs';
 })
 export class ReservarComponent {
   registro: Registro = {
+    nombre:'',
     hora:0,
     visitantes:0,
     diaNum:0,
@@ -22,12 +23,15 @@ export class ReservarComponent {
   minDate = new Date();
   horasDisp:number[]=[];
   day:any;
+  name:string = '';
   selectedVisitors:number = 0;
   selectedTime:number = 0;
   valid:boolean = true;
   reservations:any[]=[];
   tabla:Tabla[]=[]
-  displayedColumns: string[] = ['hora', 'visitantes'];
+  tableHeader:any;
+  //displayedColumns: string[] = ['hora', 'visitantes'];
+  displayedColumns: string[] = ['hora', 'disponibilidad'];
 
   constructor(private dateAdapter: DateAdapter<Date>){
     this.dateAdapter.setLocale('es-mx');
@@ -41,7 +45,7 @@ export class ReservarComponent {
       }
       this.tabla.push({     
         hora:i,    
-        visitantes:0, 
+        //visitantes:0, 
         disponibilidad: 'true'
       });
     }
@@ -51,7 +55,7 @@ export class ReservarComponent {
     for(let i=0; i<15; i++){
       this.tabla[i]={    
         hora:i+8,    
-        visitantes:0,
+        //visitantes:0,
         disponibilidad: 'true'
       };
     }
@@ -63,10 +67,10 @@ export class ReservarComponent {
     const reservationsString = localStorage.getItem('reservations');
     const reservations = reservationsString ? JSON.parse(reservationsString) : [];
     for(let r of reservations){
-      console.log(r);
+      //console.log(r);
       if(r.diaNum === tempr.diaNum && r.mes === tempr.mes && r.año === tempr.año ){
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].hora=r.hora;
-        this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].visitantes=r.visitantes;
+        //this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].visitantes=r.visitantes;
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].disponibilidad='false';
       }
     }
@@ -106,13 +110,14 @@ export class ReservarComponent {
       mes:dateValue[2],
       año:dateValue[3]
     }
+    this.tableHeader = dateValue[0]+", "+dateValue[1]+" de "+dateValue[2]+" de "+dateValue[3];
     this.construirTabla(tempr);
   }
   
   selectChange() {
-    if(this.selectedVisitors != 0 && this.selectedTime != 0 ){
+    if(this.selectedVisitors != 0 && this.selectedTime != 0 && this.name != ''){
       this.valid = false;
-    }else if(this.selectedVisitors == 0 || this.selectedTime == 0 ){
+    }else if(this.selectedVisitors == 0 || this.selectedTime == 0 && this.name == ''){
       this.valid = true;
     }
   }
@@ -123,9 +128,11 @@ export class ReservarComponent {
   }
 
   registrarReservacion(){
+    this.registro.nombre = this.name;
     this.registro.hora = this.selectedTime;
     this.registro.visitantes = this.selectedVisitors;
 
+    this.name = '';
     this.selectedVisitors = 0;
     this.selectedTime = 0;
     this.selectChange();
@@ -162,11 +169,12 @@ export class ReservarComponent {
 }
 interface Tabla{
   hora:number,
-  visitantes:number,
+  //visitantes:number,
   disponibilidad:string
 }
 
 interface Registro{
+  nombre:string,
   hora:number,
   visitantes:number,
   diaNum:number,

@@ -10,11 +10,25 @@
 img{
     width: 15vw;
 }
+.expo{
+    text-align: justify;
+}
 .personaD{
     text-align: start;
+    display: flex;
+    margin-bottom: 0.5rem;
 }
 .personaI{
+    justify-content: flex-end;
     text-align: end;
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+.personaD img{
+    margin-right: 0.75rem;
+}
+.personaI img{
+    margin-left: 0.75rem;
 }
 h1{
     font-size: 1.75rem;
@@ -27,4 +41,8 @@ h3{
 }
 p{
     font-size: 1.15rem;
+}
+.avatar img{
+    width: 15rem;
+    border: ridge 0.5rem rgb(185, 161, 23);
 }
