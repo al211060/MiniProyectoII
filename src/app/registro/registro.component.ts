@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth-service.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, doc, setDoc, updateDoc, getDoc, DocumentData } from 'firebase/firestore';
 
@@ -20,9 +20,18 @@ export class RegistroComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.signupForm = new FormGroup({
       'email': new FormControl('', [Validators.required, Validators.email]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(8)])
-    });
+      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+      'confirmPassword': new FormControl('', [Validators.required]),
+    }, { validators: this.passwordMatchValidator });
   }
+  
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+  
+    return password === confirmPassword ? null : { 'passwordMismatch': true };
+  }
+  
 
   signUp() {
     if (this.signupForm.invalid) {

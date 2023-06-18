@@ -1,36 +1,38 @@
-
 <div class="container">
-    <div class="card bg-light mt-5">
-      <div class="card-body">
-        <h2 class="card-title">Registrarse</h2>
-        <form [formGroup]="signupForm" (ngSubmit)="signUp()">
-          <div class="form-group">
-            <label>Email:</label>
-            <input  type="email" 
-                    formControlName="email" 
-                    class="form-control" 
-                    required
-                    id="email"
-                    placeholder="correo"
-                    [ngClass]="{'is-invalid':!signupForm.get('email')?.valid}">
-            <div *ngIf="signupForm.controls['email'].errors?.['required']" class="invalid-feedback">Ingresa un correo válido.</div>
-            <div *ngIf="signupForm.controls['email'].errors?.['email']" class="invalid-feedback">Ingresa un correo válido.</div>
+  <div class="card bg-light mt-5">
+    <div class="card-body">
+      <h2 class="card-title">Registrarse</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" formControlName="email" class="form-control" required id="email" placeholder="correo"
+            [ngClass]="{'is-invalid': !signupForm.get('email')?.valid}">
+          <div *ngIf="signupForm.controls['email'].errors?.['required']" class="invalid-feedback">Ingresa un correo
+            válido.</div>
+          <div *ngIf="signupForm.controls['email'].errors?.['email']" class="invalid-feedback">Ingresa un correo válido.
           </div>
-          <div class="form-group">
-            <label>Contraseña:(Minimo 8 Caracteres)</label>
-            <input type="password" formControlName="password" class="form-control" required
-            [ngClass]="{'is-invalid':!signupForm.get('password')?.valid}">
-            <div *ngIf="signupForm.controls['password'].errors?.['required'] " class="invalid-feedback">Contraseña Invalida.</div>
-            <div *ngIf="signupForm.controls['password'].errors?.['minlenght'] " class="invalid-feedback">La contraseña debe tener al menos 8 caracteres.</div>
+        </div>
+        <div class="form-group">
+          <label>Contraseña: (Mínimo 8 Caracteres)</label>
+          <input type="password" formControlName="password" class="form-control" required
+            [ngClass]="{'is-invalid': !signupForm.get('password')?.valid}">
+          <div *ngIf="signupForm.controls['password'].errors?.['required']" class="invalid-feedback">Contraseña
+            inválida.</div>
+          <div *ngIf="signupForm.controls['password'].errors?.['minlength']" class="invalid-feedback">La contraseña debe
+            tener al menos 8 caracteres.</div>
+        </div>
+        <div class="form-group">
+          <label>Confirmar Contraseña:</label>
+          <input type="password" formControlName="confirmPassword" class="form-control" required
+            [ngClass]="{'is-invalid': !signupForm.get('confirmPassword')?.valid}">
+          <div *ngIf="signupForm.controls['confirmPassword'].errors?.['required']" class="invalid-feedback">Confirmar
+            contraseña inválida.</div>
+          <div *ngIf="signupForm.hasError('passwordMismatch')" class="invalid-feedback">Las contraseñas no coinciden.
           </div>
-          
-          <button type="submit" class="btn btn-primary">Registrarse</button>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+      </form>
     </div>
   </div>
-  
-
-<br>
-<br>
-<br>
+</div>
