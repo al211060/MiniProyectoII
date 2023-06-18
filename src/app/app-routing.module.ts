@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { ProductsComponent } from './products/products.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'registro', component: RegistroComponent},
   { path: 'products', component: ProductsComponent},
+  { path: 'graficas', component: BarChartComponent},
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", redirectTo: "/home" }
 ];
