@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../app/environments/environment';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore/lite';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { ReporteComponent } from './reporte/reporte.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductosService } from './productos.service';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { FaqComponent } from './faq/faq.component';
 
 
 const firebaseConfig = {
@@ -78,7 +80,8 @@ const firebaseConfig = {
     RegistroComponent,
     ReporteComponent,
     ProductsComponent,
-    BarChartComponent
+    BarChartComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ const firebaseConfig = {
     MatTableModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    //provideDatabase(() => getDatabase()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

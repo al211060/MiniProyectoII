@@ -11,6 +11,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { ProductsComponent } from './products/products.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { FaqComponent } from './faq/faq.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "reservar", component: ReservarComponent },
   { path: "reporte", component: ReporteComponent },
   { path: "noticias", component: NoticiasComponent },
+  { path: "faq", component: FaqComponent },
   { path: 'busqueda/:item', component: BusquedaComponent },
   { path: 'login', component: LoginComponent},
   { path: 'registro', component: RegistroComponent},

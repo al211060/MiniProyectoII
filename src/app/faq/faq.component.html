@@ -1,0 +1,113 @@
+<div class="contenedor">
+  <h1>Prequntas Frecuentes</h1>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading1">
+            <button class="btn-secondary accordion-button" (click)="collapse(1)" [ngClass]="{'collapsed': !accordionCtrl1}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" [attr.aria-expanded]="accordionCtrl1" aria-controls="collapse1">
+                Me gustaría hacer una reservación ¿Qué debo hacer?
+            </button>
+          </h2>
+          <div id="collapse1" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl1 ? 'block':'none'}" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Para realizar una reservación es necesario tener una cuenta registrada, si cumple con ese requisito, inicie sesión y después entre en la opción de “Reservar” en la barra de navegación, en el caso de no tener una cuenta registrada, favor de registrarse y continuar con el proceso anteriormente mencionado.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading2">
+            <button class="accordion-button" (click)="collapse(2)" [ngClass]="{'collapsed': !accordionCtrl2}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" [attr.aria-expanded]="accordionCtrl2" aria-controls="collapse2">
+              ¿Cuándo puedo hacer una reserva?
+            </button>
+          </h2>
+          <div id="collapse2" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl2 ? 'block':'none'}" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Cualquier día y hora que este disponible.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading3">
+            <button class="accordion-button" (click)="collapse(3)" [ngClass]="{'collapsed': !accordionCtrl3}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" [attr.aria-expanded]="accordionCtrl3" aria-controls="collapse3">
+              ¿Los niños están incluidos en el número de personas de la reserva?
+            </button>
+          </h2>
+          <div id="collapse3" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl3 ? 'block':'none'}" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Si, niños deberán ser considerados al momento de ingresar el número de visitantes.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading4">
+            <button class="accordion-button" (click)="collapse(4)" [ngClass]="{'collapsed': !accordionCtrl4}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" [attr.aria-expanded]="accordionCtrl4" aria-controls="collapse4">
+              ¿Puedo cambiar el número de personas en mi reserva después de completar la reserva?
+            </button>
+          </h2>
+          <div id="collapse4" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl4 ? 'block':'none'}" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              No, una vez que se hace la reservación no se pueden generar cambios.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading5">
+            <button class="accordion-button" (click)="collapse(5)" [ngClass]="{'collapsed': !accordionCtrl5}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" [attr.aria-expanded]="accordionCtrl5" aria-controls="collapse5">
+              ¿Puedo cancelar mi reserva?
+            </button>
+          </h2>
+          <div id="collapse5" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl5 ? 'block':'none'}" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Es posible cancelar una reservación, dentro de la opción “Reporte de Reservaciones” se encontrará(n) su(s) reservación(es), ahí tendrá la oportunidad de cancelarla. En caso de tener múltiples reservaciones tener cuidado de cancelar la correcta.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading6">
+            <button class="accordion-button" (click)="collapse(6)" [ngClass]="{'collapsed': !accordionCtrl6}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" [attr.aria-expanded]="accordionCtrl6" aria-controls="collapse6">
+              ¿Tiene sillas para bebés?
+            </button>
+          </h2>
+          <div id="collapse6" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl6 ? 'block':'none'}" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              El establecimiento tiene sillas para bebes disponibles, aunque limitadas.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading7">
+            <button class="accordion-button" (click)="collapse(7)" [ngClass]="{'collapsed': !accordionCtrl7}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" [attr.aria-expanded]="accordionCtrl7" aria-controls="collapse7">
+              ¿Puedes fumar?
+            </button>
+          </h2>
+          <div id="collapse7" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl7 ? 'block':'none'}" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              No, fumar esta estrictamente prohibido dentro del establecimiento.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading8">
+            <button class="accordion-button" (click)="collapse(8)" [ngClass]="{'collapsed': !accordionCtrl8}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" [attr.aria-expanded]="accordionCtrl8" aria-controls="collapse8">
+              ¿Puedo llevar a mi mascota conmigo?
+            </button>
+          </h2>
+          <div id="collapse8" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl8 ? 'block':'none'}" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Si, aunque no podrá acompañarle en la mesa y tendrá que estar dentro del área de mascotas disponible en el establecimiento. 
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading9">
+            <button class="accordion-button" (click)="collapse(9)" [ngClass]="{'collapsed': !accordionCtrl9}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" [attr.aria-expanded]="accordionCtrl9" aria-controls="collapse9">
+              ¿Puedo llegar al establecimiento sin reservación?
+            </button>
+          </h2>
+          <div id="collapse9" class="accordion-collapse collapse" [ngStyle]="{'display': accordionCtrl9 ? 'block':'none'}" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Es posible que haya otras mesas disponibles al presentarse sin reservación, pero tener una reservación es la única manera de garantizar un espacio.
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

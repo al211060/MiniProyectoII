@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
+import { Database, onValue, push, ref, set } from '@angular/fire/database';
 import * as alertifyjs from 'alertifyjs';
 
 @Component({
@@ -27,18 +28,33 @@ export class ReservarComponent {
   selectedVisitors:number = 0;
   selectedTime:number = 0;
   valid:boolean = true;
-  reservations:any[]=[];
+  reservaciones:any[]=[];
+  reservacionesAux:any[]=[];
   tabla:Tabla[]=[]
   tableHeader:any;
   //displayedColumns: string[] = ['hora', 'visitantes'];
   displayedColumns: string[] = ['hora', 'disponibilidad'];
 
-  constructor(private dateAdapter: DateAdapter<Date>){
+  constructor(private dateAdapter: DateAdapter<Date>/*, public database: Database*/){
     this.dateAdapter.setLocale('es-mx');
     this.calendarChange(this.selectedDate);
     this.calendarChangeT(this.selectedDate2);
+
+    /*onValue(ref(this.database, 'reservations/'), (snapshot) => {
+      if(snapshot.val() != null){
+        //this.reservacionesAux2 = snapshot.val();
+        this.reservaciones = [];
+        this.reservacionesAux = [];
+        snapshot.forEach((childSnapshot)=>{
+          this.reservaciones.push(childSnapshot.val());
+          this.reservacionesAux.push(childSnapshot.key);
+        });
+      }
+    });*/
     const reservationsString = localStorage.getItem('reservations');
-    this.reservations = reservationsString ? JSON.parse(reservationsString): [];
+    this.reservaciones = reservationsString ? JSON.parse(reservationsString): [];
+    /*console.log(this.horasDisp);
+    console.log(this.tabla);
     for(let i=8; i<23; i++){
       if(i>parseInt(formatDate(new Date(),"H","es"))){
         this.horasDisp.push(i);
@@ -49,6 +65,8 @@ export class ReservarComponent {
         disponibilidad: 'true'
       });
     }
+    console.log(this.horasDisp);
+    console.log(this.tabla);*/
   }
 
   resetTabla(){
@@ -74,6 +92,14 @@ export class ReservarComponent {
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].disponibilidad='false';
       }
     }
+    /*for(let r of this.reservaciones){
+      //console.log(r);
+      if(r.diaNum === tempr.diaNum && r.mes === tempr.mes && r.año === tempr.año ){
+        this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].hora=r.hora;
+        //this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].visitantes=r.visitantes;
+        this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].disponibilidad='false';
+      }
+    }*/
   }
 
   horasLimite(){
@@ -145,6 +171,9 @@ export class ReservarComponent {
     const isOccupied = reservations.some((reservation: Registro) =>
       reservation.diaNum === this.registro.diaNum && reservation.mes === this.registro.mes && reservation.año === this.registro.año && reservation.hora === this.registro.hora
     );
+    /*const isOccupied = this.reservaciones.some((reservation: Registro) =>
+      reservation.diaNum === this.registro.diaNum && reservation.mes === this.registro.mes && reservation.año === this.registro.año && reservation.hora === this.registro.hora
+    );*/
     console.log(isOccupied);
 
     if (this.day === "domingo") {
@@ -156,6 +185,14 @@ export class ReservarComponent {
     } else {
       reservations.push(this.registro);
       localStorage.setItem('reservations', JSON.stringify(reservations));
+      /*push(ref(this.database, 'reservations'),{
+        nombre:this.registro.nombre,
+        hora:this.registro.hora,
+        visitantes:this.registro.visitantes,
+        diaNum:this.registro.diaNum,
+        mes:this.registro.mes,
+        año:this.registro.año
+      });*/
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.success("Reservacion realizada con exito");
       this.calendarChangeT(this.selectedDate2);

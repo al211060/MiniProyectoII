@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Database, onValue, ref, remove, set } from '@angular/fire/database';
 
 @Component({
   selector: 'app-reporte',
@@ -6,11 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./reporte.component.css']
 })
 export class ReporteComponent {
-  reservations:any[];
+  reservaciones!:any[];
+  reservacionesAux!:any[];
 
-  constructor(){
+  constructor(/*public database: Database*/){
     const reservationsString = localStorage.getItem('reservations');
-    this.reservations = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];
+    this.reservaciones = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];
+    /*onValue(ref(this.database, 'reservations/'), (snapshot) => {
+      var aux =[];
+      this.reservaciones = [];
+      this.reservacionesAux = [];
+      snapshot.forEach((childSnapshot)=>{
+        this.reservaciones.push(childSnapshot.val());
+        this.reservacionesAux.push(childSnapshot.key);
+      });
+    });*/
   }
 
   reservationsTransform(reservations:any){
@@ -43,4 +54,10 @@ export class ReporteComponent {
     }
     return temp.sort((a, b) => a.timestamp - b.timestamp);
   }
+
+  /*eliminarCita(i:number){
+    remove(ref(this.database, 'reservations/'+this.reservacionesAux[i]));
+    //set(ref(this.database, 'reservations/'),this.reservaciones);
+    alert("Cita eliminada: "+i);
+  }*/
 }

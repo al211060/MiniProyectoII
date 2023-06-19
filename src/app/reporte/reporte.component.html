@@ -5,12 +5,12 @@
           <tr>
             <th scope="col">Fecha</th>
             <th scope="col">Hora</th>
-            <th scope="col">A Nombre de</th>
+            <th scope="col">Registrado a Nombre de</th>
             <th scope="col">Visitantes</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of reservations">
+          <tr *ngFor="let r of reservaciones">
             <th scope="row">{{r.fecha}}</th>
             <td>{{r.hora}}</td>
             <td>{{r.nombre}}</td>

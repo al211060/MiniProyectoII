@@ -1,0 +1,24 @@
+.contenedor{
+    width: 90%;
+    background-color: rgba(250, 235, 215, 0.233);
+    margin: 2.5% auto 0 auto;
+    padding: 2%;
+    color: white;
+    text-shadow: 0.1rem 0.2rem black;
+    text-align: center;
+}
+.accordion{
+    width: 85%;
+    margin: auto;
+}
+.accordion-header{
+    margin: 0;
+}
+.accordion-button, .accordion-body{
+    background-color: #3c3e3f;
+    color: white;
+    text-shadow: 0.1rem 0.2rem black;
+}
+.accordion-body{
+    text-align: justify;
+}
