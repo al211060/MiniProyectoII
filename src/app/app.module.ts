@@ -49,6 +49,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductosService } from './productos.service';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { FaqComponent } from './faq/faq.component';
+import { QRComponent } from './qr/qr.component';
 
 
 const firebaseConfig = {
@@ -81,7 +82,8 @@ const firebaseConfig = {
     ReporteComponent,
     ProductsComponent,
     BarChartComponent,
-    FaqComponent
+    FaqComponent,
+    QRComponent
   ],
   imports: [
     BrowserModule,

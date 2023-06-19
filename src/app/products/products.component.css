@@ -1,0 +1,36 @@
+.container {
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.table {
+  color: white;
+}
+
+.search label,
+.filter label,
+.create-product h3,
+.create-product label {
+  color: white;
+}
+
+.search .input-group,
+.filter .input-group {
+  display: flex;
+}
+
+.search .input-group input,
+.filter .input-group input,
+.create-product input {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.create-product {
+  max-width: 50%;
+}
+
+.create-product button {
+  margin-top: 10px;
+}

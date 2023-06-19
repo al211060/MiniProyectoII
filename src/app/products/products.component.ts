@@ -26,9 +26,21 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productId: number = 0;
   minPrice: number = 0;
+
+  nombreProducto: string = '';
+  precioEspecialProducto: number = 0;
+  precioSugeridoProducto: number = 0;
+
+  newProduct: Product = {
+    id: 0,
+    nombre: '',
+    precioEspecial: 0,
+    precioSugerido: 0
+  };
   
   constructor(private productosService: ProductosService,
-    private router: Router) { }
+    private router: Router,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -44,8 +56,7 @@ export class ProductsComponent implements OnInit {
   getProductById(id: number): void {
     this.productosService.getProductById(id)
       .subscribe(product => {
-        // Redireccionar al componente de detalles del producto
-        this.router.navigate(['/product', product.id]);
+        this.products = [product]; // Asignar el producto encontrado al arreglo products
       });
   }
 
@@ -56,19 +67,33 @@ export class ProductsComponent implements OnInit {
       });
   }
 
+  /*
   createProduct(): void {
     const newProduct: Product = {
       id: 0,
-      nombre: 'Nuevo Producto',
-      precioEspecial: 0,
-      precioSugerido: 0
+      nombre: this.nombreProducto,
+      precioEspecial: this.precioEspecialProducto,
+      precioSugerido: this.precioSugeridoProducto
     };
-
+  
     this.productosService.createProduct(newProduct)
       .subscribe(() => {
         // Actualizar la lista de productos después de la creación
         this.fetchProducts();
       });
-    }
+  
+    // Restablecer los valores del formulario
+    this.nombreProducto = '';
+    this.precioEspecialProducto = 0;
+    this.precioSugeridoProducto = 0;
+  }
+  */
+
+  createProduct(): void {
+    this.productosService.createProduct(this.newProduct).subscribe(() => {
+      // Actualizar la lista de productos después de la creación
+      this.fetchProducts();
+    });
+  }
 
 }
