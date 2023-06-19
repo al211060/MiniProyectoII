@@ -13,10 +13,10 @@
           <a class="nav-link" routerLink="/about">Sobre Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/reservar">Reservar</a>
+          <a class="nav-link" routerLink="/reservar" *ngIf="authService.isLoggedIn()">Reservar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/reporte">Reporte de Reservaciones</a>
+          <a class="nav-link" routerLink="/reporte" *ngIf="authService.isLoggedIn()">Reporte de Reservaciones</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/noticias">Musica</a>

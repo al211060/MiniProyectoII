@@ -4,3 +4,9 @@ img{
 .nav-link{
     text-align: center;
 }
+
+/* Estilos personalizados */
+.navbar-nav .nav-link {
+    font-size: smaller;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  }
