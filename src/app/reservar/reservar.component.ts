@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Database, onValue, push, ref, set } from '@angular/fire/database';
 import * as alertifyjs from 'alertifyjs';
+import { AuthService } from '../auth-service.service';
+import { EmailService } from '../email.service';
+
+
 
 @Component({
   selector: 'app-reservar',
@@ -18,6 +22,18 @@ export class ReservarComponent {
     mes:'',
     año:0
   };
+
+  datos: DatosReserva={
+    nombre:'',
+    hora:0,
+    visitantes:0,
+    diaNum:0,
+    mes:'',
+    año:0,
+    email: ''
+  };
+
+  correoEnviado: Boolean = false;
   selectedDate = new Date();
   selectedDate2 = new Date();
   startAt = new Date();
@@ -35,7 +51,8 @@ export class ReservarComponent {
   //displayedColumns: string[] = ['hora', 'visitantes'];
   displayedColumns: string[] = ['hora', 'disponibilidad'];
 
-  constructor(private dateAdapter: DateAdapter<Date>/*, public database: Database*/){
+  constructor(private authService: AuthService, public emailService: EmailService,
+    private dateAdapter: DateAdapter<Date>/*, public database: Database*/){
     this.dateAdapter.setLocale('es-mx');
     this.calendarChange(this.selectedDate);
     this.calendarChangeT(this.selectedDate2);
@@ -184,7 +201,24 @@ export class ReservarComponent {
       alertifyjs.error("Lo sentimos, una cita ya existe registrada.");
     } else {
       reservations.push(this.registro);
+
       localStorage.setItem('reservations', JSON.stringify(reservations));
+
+      // Mandamos correo al usuario logueado
+
+      this.datos.email = this.authService.user?.email ?? '';
+      this.datos.nombre = this.registro.nombre;
+      this.datos.hora = this.registro.hora;
+      this.datos.diaNum = this.registro.diaNum;
+      this.datos.visitantes = this.registro.visitantes;
+
+      this.emailService.sendReservation(this.datos).subscribe(() => {
+        this.correoEnviado = true;
+      });
+
+      if(this.correoEnviado){console.log("El correo de la Reservacion Comenzo su envio");}
+
+
       /*push(ref(this.database, 'reservations'),{
         nombre:this.registro.nombre,
         hora:this.registro.hora,
@@ -217,4 +251,14 @@ interface Registro{
   diaNum:number,
   mes:string,
   año:number
+}
+
+interface DatosReserva{
+  nombre:string,
+  hora:number,
+  visitantes:number,
+  diaNum:number,
+  mes:string,
+  año:number,
+  email: string
 }
