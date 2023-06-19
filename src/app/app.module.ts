@@ -50,6 +50,7 @@ import { ProductosService } from './productos.service';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { FaqComponent } from './faq/faq.component';
 import { QRComponent } from './qr/qr.component';
+import { EmailService } from './email.service';
 
 
 const firebaseConfig = {
@@ -112,7 +113,8 @@ const firebaseConfig = {
     })
   ],
   providers: [
-    ProductosService, 
+    ProductosService,
+    EmailService, 
     {provide: LOCALE_ID, useValue: 'es-mx'},
     // Proporciona la instancia de la aplicación Firebase
     { provide: 'firebase-config', useValue: firebaseConfig },
