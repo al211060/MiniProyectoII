@@ -25,11 +25,25 @@ export class RegistroComponent {
     }, { validators: this.passwordMatchValidator });
   }
   
+  /*
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
   
     return password === confirmPassword ? null : { 'passwordMismatch': true };
+  }
+  */
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    const passwordsMatch = password === confirmPassword;
+
+    if (!passwordsMatch) {
+      control.get('confirmPassword')?.setErrors({ 'passwordMismatch': true });
+    }
+
+    return null;
   }
   
 

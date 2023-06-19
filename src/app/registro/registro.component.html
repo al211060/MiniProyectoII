@@ -29,6 +29,8 @@
             contraseña inválida.</div>
           <div *ngIf="signupForm.hasError('passwordMismatch')" class="invalid-feedback">Las contraseñas no coinciden.
           </div>
+          <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched" class="invalid-feedback">Las contraseñas no coinciden.</div>
+
         </div>
 
         <button type="submit" class="btn btn-primary">Registrarse</button>
