@@ -12,6 +12,7 @@ export class ItemComponent implements /*DoCheck, AfterContentChecked,*/ AfterVie
   
   ngAfterViewChecked(){
     if(this.modalF){
+      console.log("Se esta repitiendo multiples veces por alguna razon")
       this.openModalButton.nativeElement.dispatchEvent(new MouseEvent('click'));
     }
   }

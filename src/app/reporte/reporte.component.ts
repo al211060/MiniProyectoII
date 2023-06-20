@@ -10,21 +10,22 @@ export class ReporteComponent {
   reservaciones!:any[];
   reservacionesAux!:any[];
 
-  constructor(/*public database: Database*/){
-    const reservationsString = localStorage.getItem('reservations');
-    this.reservaciones = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];
-    /*onValue(ref(this.database, 'reservations/'), (snapshot) => {
-      var aux =[];
+  constructor(public database: Database){
+    /*const reservationsString = localStorage.getItem('reservations');
+    this.reservaciones = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];*/
+    onValue(ref(this.database, 'reservations/'), (snapshot) => {
+      var temp:any =[];
       this.reservaciones = [];
       this.reservacionesAux = [];
       snapshot.forEach((childSnapshot)=>{
-        this.reservaciones.push(childSnapshot.val());
+        temp.push(childSnapshot.val());
         this.reservacionesAux.push(childSnapshot.key);
       });
-    });*/
+      this.reservaciones = this.reservationsTransform(temp,this.reservacionesAux);
+    });
   }
 
-  reservationsTransform(reservations:any){
+  reservationsTransform(reservations:any, aux:any){
     var temp = [];
     var fecha;
     var fechaR;
@@ -49,15 +50,17 @@ export class ReporteComponent {
         hora:r.hora+":00",
         nombre:r.nombre,
         visitantes:r.visitantes,
-        timestamp: new Date(fechaR!).getTime()/1000
+        timestamp: new Date(fechaR!).getTime()/1000,
+        key: aux[reservations.indexOf(r)]
       });
     }
+    //console.log(temp);
     return temp.sort((a, b) => a.timestamp - b.timestamp);
   }
 
-  /*eliminarCita(i:number){
-    remove(ref(this.database, 'reservations/'+this.reservacionesAux[i]));
+  eliminarCita(key:number){
+    remove(ref(this.database, 'reservations/'+key));
     //set(ref(this.database, 'reservations/'),this.reservaciones);
-    alert("Cita eliminada: "+i);
-  }*/
+    alert("Cita eliminada");
+  }
 }
