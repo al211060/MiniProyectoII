@@ -22,16 +22,16 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form [formGroup]="contactForm" (ngSubmit)="submitForm()" class="container mt-5">
+            <form [formGroup]="contactForm" (ngSubmit)="submitForm(form.value)" class="container mt-5" #form="ngForm">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" formControlName="name" [(ngModel)]="contactForm.value.name" class="form-control">
+                            <input type="text" formControlName="nombre" [(ngModel)]="contactForm.value.nombre" class="form-control" nombre="nombre">
                             <span class="text-danger small"
-                                *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)">
-                                <span *ngIf="contactForm.get('name')?.errors?.['required']">El nombre es obligatorio. </span>
-                                <span *ngIf="contactForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</span>
+                                *ngIf="contactForm.get('nombre')?.invalid && (contactForm.get('nombre')?.dirty || contactForm.get('nombre')?.touched)">
+                                <span *ngIf="contactForm.get('nombre')?.errors?.['required']">El nombre es obligatorio. </span>
+                                <span *ngIf="contactForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</span>
                             </span>
                         </div>
             
@@ -49,12 +49,12 @@
             
                         <div class="form-group">
                             <label>Mensaje:</label>
-                            <textarea formControlName="message" [(ngModel)]="contactForm.value.message"
-                                class="form-control"></textarea>
+                            <textarea formControlName="mensaje" [(ngModel)]="contactForm.value.mensaje"
+                                class="form-control" nombre="mensaje"></textarea>
                             <span class="text-danger small"
-                                *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)">
-                                <span *ngIf="contactForm.get('message')?.errors?.['required']">El mensaje es obligatorio. </span>
-                                <span *ngIf="contactForm.get('message')?.errors?.['minlength']">El mensaje debe tener al menos 25
+                                *ngIf="contactForm.get('mensaje')?.invalid && (contactForm.get('mensaje')?.dirty || contactForm.get('mensaje')?.touched)">
+                                <span *ngIf="contactForm.get('mensaje')?.errors?.['required']">El mensaje es obligatorio. </span>
+                                <span *ngIf="contactForm.get('mensaje')?.errors?.['minlength']">El mensaje debe tener al menos 25
                                     caracteres.</span>
                             </span>
                         </div>
