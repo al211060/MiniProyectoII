@@ -33,6 +33,7 @@
                 </mat-form-field>
               <p class="cal_date">Reservacion para {{selectedVisitors}} personas el {{day}}, {{registro.diaNum}} {{registro.mes}}  a las {{selectedTime}}:00</p>
               <button (click)="registrarReservacion()" color="primary" [disabled]="valid" mat-button class="example-ripple-container mat-elevation-z4" matRipple>Reservar Mesa</button>
+              <small>Se recomienda consultar la pestaña "Consultar Disponibilidad" antes de hacer una reservación</small>
             </div>
         </div>
     </mat-tab>

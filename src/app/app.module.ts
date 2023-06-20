@@ -8,10 +8,13 @@ registerLocaleData(localeEs, "es");
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../app/environments/environment';
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
+//import { environment } from '../app/environments/environment';
+//import { initializeApp } from 'firebase/app';
+//import { getFirestore } from 'firebase/firestore/lite';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,13 +57,12 @@ import { EmailService } from './email.service';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCrevB-Lu7HsbzG3Yo0aDJobtf0YqYohyg",
-  authDomain: "proyecto-final-14c28.firebaseapp.com",
-  projectId: "proyecto-final-14c28",
-  storageBucket: "proyecto-final-14c28.appspot.com",
-  messagingSenderId: "705320024254",
-  appId: "1:705320024254:web:e2563873cc707f5a1f06ef",
-  measurementId: "G-EKP7YJCP5Z"
+  apiKey: "AIzaSyBEQ1xlYvYPkh6r3aNiMDplV27dRSoV2J0",
+  authDomain: "proyecto-final-9cd83.firebaseapp.com",
+  projectId: "proyecto-final-9cd83",
+  storageBucket: "proyecto-final-9cd83.appspot.com",
+  messagingSenderId: "248208646105",
+  appId: "1:248208646105:web:5758c93dfbdc9c2ca103c8"
 };
 
 @NgModule({
@@ -102,15 +104,18 @@ const firebaseConfig = {
     MatRippleModule,
     HttpClientModule,
     MatTableModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    //provideDatabase(() => getDatabase()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    //provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
   ],
   providers: [
     ProductosService,
@@ -120,7 +125,7 @@ const firebaseConfig = {
     { provide: 'firebase-config', useValue: firebaseConfig },
     { provide: 'firebase-app', useFactory: () => initializeApp(firebaseConfig) },
     // Proporciona el servicio de Firestore
-    { provide: 'firestore', useFactory: () => getFirestore() }, 
+    //{ provide: 'firestore', useFactory: () => getFirestore() }, 
   ],
   bootstrap: [AppComponent]
 })

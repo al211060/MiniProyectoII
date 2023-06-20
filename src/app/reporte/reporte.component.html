@@ -7,6 +7,7 @@
             <th scope="col">Hora</th>
             <th scope="col">Registrado a Nombre de</th>
             <th scope="col">Visitantes</th>
+            <th scope="col">Cancelar Cita</th>
           </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
             <td>{{r.hora}}</td>
             <td>{{r.nombre}}</td>
             <td>{{r.visitantes}}</td>
+            <td><button  class="btn btn-outline-danger" (click)="eliminarCita(r.key)"><i class="fa fa-times" aria-hidden="true" ></i></button></td>
           </tr>
         </tbody>
       </table>

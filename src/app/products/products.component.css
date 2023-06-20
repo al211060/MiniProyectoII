@@ -1,9 +1,11 @@
-.container {
-  max-width: 75%;
-  margin: 0 auto;
-  padding: 20px;
+.contenedor{
+  width: 90%;
+  background-color: rgba(250, 235, 215, 0.233);
+  margin: 2.5% auto 0 auto;
+  padding: 2%;
+  color: white;
+  text-align: center;
 }
-
 .table {
   color: white;
 }

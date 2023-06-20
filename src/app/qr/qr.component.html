@@ -1,6 +1,7 @@
 <div>
-    <button (click)="handleGenerateQRCode()">Generar código QR</button>
+  <img [src]="qrCodeData" alt="QR Code"> <br><br>
 </div>
+<br>
 <div>
-    <img [src]="qrCodeData" alt="QR Code">
+  <button (click)="getRandomAnimeTitle()">Generate New QR Code</button>
 </div>

@@ -13,12 +13,13 @@ import { EmailService } from '../email.service';
   templateUrl: './reservar.component.html',
   styleUrls: ['./reservar.component.css']
 })
-export class ReservarComponent {
+export class ReservarComponent{
   registro: Registro = {
     nombre:'',
     hora:0,
     visitantes:0,
     diaNum:0,
+    dia:'',
     mes:'',
     año:0
   };
@@ -51,13 +52,9 @@ export class ReservarComponent {
   //displayedColumns: string[] = ['hora', 'visitantes'];
   displayedColumns: string[] = ['hora', 'disponibilidad'];
 
-  constructor(private authService: AuthService, public emailService: EmailService,
-    private dateAdapter: DateAdapter<Date>/*, public database: Database*/){
+  constructor(private dateAdapter: DateAdapter<Date>, public database: Database, private authService: AuthService, public emailService: EmailService){
     this.dateAdapter.setLocale('es-mx');
-    this.calendarChange(this.selectedDate);
-    this.calendarChangeT(this.selectedDate2);
-
-    /*onValue(ref(this.database, 'reservations/'), (snapshot) => {
+    onValue(ref(this.database, 'reservations/'), (snapshot) => {
       if(snapshot.val() != null){
         //this.reservacionesAux2 = snapshot.val();
         this.reservaciones = [];
@@ -67,9 +64,13 @@ export class ReservarComponent {
           this.reservacionesAux.push(childSnapshot.key);
         });
       }
-    });*/
-    const reservationsString = localStorage.getItem('reservations');
-    this.reservaciones = reservationsString ? JSON.parse(reservationsString): [];
+      this.calendarChangeT(this.selectedDate2);
+    });
+
+    this.calendarChange(this.selectedDate);
+
+    /*const reservationsString = localStorage.getItem('reservations');
+    this.reservaciones = reservationsString ? JSON.parse(reservationsString): [];*/
     /*console.log(this.horasDisp);
     console.log(this.tabla);
     for(let i=8; i<23; i++){
@@ -87,6 +88,7 @@ export class ReservarComponent {
   }
 
   resetTabla(){
+    this.tabla=[];
     for(let i=0; i<15; i++){
       this.tabla[i]={    
         hora:i+8,    
@@ -97,9 +99,8 @@ export class ReservarComponent {
   }
 
   construirTabla(tempr:any){
-    this.tabla=[];
     this.resetTabla();
-    const reservationsString = localStorage.getItem('reservations');
+    /*const reservationsString = localStorage.getItem('reservations');
     const reservations = reservationsString ? JSON.parse(reservationsString) : [];
     for(let r of reservations){
       //console.log(r);
@@ -108,15 +109,13 @@ export class ReservarComponent {
         //this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].visitantes=r.visitantes;
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].disponibilidad='false';
       }
-    }
-    /*for(let r of this.reservaciones){
-      //console.log(r);
+    }*/
+    for(let r of this.reservaciones){
       if(r.diaNum === tempr.diaNum && r.mes === tempr.mes && r.año === tempr.año ){
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].hora=r.hora;
-        //this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].visitantes=r.visitantes;
         this.tabla[this.tabla.findIndex(x => x.hora === r.hora)].disponibilidad='false';
       }
-    }*/
+    }
   }
 
   horasLimite(){
@@ -180,18 +179,18 @@ export class ReservarComponent {
     this.selectedTime = 0;
     this.selectChange();
 
-    console.log(this.registro);
+    //console.log(this.registro);
 
-    const reservationsString = localStorage.getItem('reservations');
+    /*const reservationsString = localStorage.getItem('reservations');
     const reservations = reservationsString ? JSON.parse(reservationsString) : [];
 
     const isOccupied = reservations.some((reservation: Registro) =>
       reservation.diaNum === this.registro.diaNum && reservation.mes === this.registro.mes && reservation.año === this.registro.año && reservation.hora === this.registro.hora
-    );
-    /*const isOccupied = this.reservaciones.some((reservation: Registro) =>
-      reservation.diaNum === this.registro.diaNum && reservation.mes === this.registro.mes && reservation.año === this.registro.año && reservation.hora === this.registro.hora
     );*/
-    console.log(isOccupied);
+    const isOccupied = this.reservaciones.some((reservation: Registro) =>
+      reservation.diaNum === this.registro.diaNum && reservation.mes === this.registro.mes && reservation.año === this.registro.año && reservation.hora === this.registro.hora
+    );
+    //console.log(isOccupied);
 
     if (this.day === "domingo") {
       alertifyjs.set("notifier","position","top-center");
@@ -200,9 +199,8 @@ export class ReservarComponent {
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.error("Lo sentimos, una cita ya existe registrada.");
     } else {
-      reservations.push(this.registro);
-
-      localStorage.setItem('reservations', JSON.stringify(reservations));
+      //reservations.push(this.registro);
+      //localStorage.setItem('reservations', JSON.stringify(reservations));
 
       // Mandamos correo al usuario logueado
 
@@ -219,14 +217,15 @@ export class ReservarComponent {
       if(this.correoEnviado){console.log("El correo de la Reservacion Comenzo su envio");}
 
 
-      /*push(ref(this.database, 'reservations'),{
+      push(ref(this.database, 'reservations'),{
         nombre:this.registro.nombre,
         hora:this.registro.hora,
         visitantes:this.registro.visitantes,
         diaNum:this.registro.diaNum,
+        dia:this.day,
         mes:this.registro.mes,
         año:this.registro.año
-      });*/
+      });
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.success("Reservacion realizada con exito");
       this.calendarChangeT(this.selectedDate2);
@@ -238,6 +237,7 @@ export class ReservarComponent {
     this.reservations = reservationsString ? JSON.parse(reservationsString): [];
   }*/
 }
+
 interface Tabla{
   hora:number,
   //visitantes:number,
@@ -249,6 +249,7 @@ interface Registro{
   hora:number,
   visitantes:number,
   diaNum:number,
+  dia:string,
   mes:string,
   año:number
 }
