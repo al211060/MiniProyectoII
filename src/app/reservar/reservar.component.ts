@@ -4,6 +4,7 @@ import { DateAdapter } from '@angular/material/core';
 import { Database, onValue, push, ref, set } from '@angular/fire/database';
 import * as alertifyjs from 'alertifyjs';
 import { AuthService } from '../auth-service.service';
+import { EmailService } from '../email.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,6 +23,18 @@ export class ReservarComponent implements AfterViewChecked{
     mes:'',
     año:0
   };
+
+  datos: DatosReserva={
+    nombre:'',
+    hora:0,
+    visitantes:0,
+    diaNum:0,
+    mes:'',
+    año:0,
+    email: ''
+  };
+
+  correoEnviado: Boolean = false;
   selectedDate = new Date();
   selectedDate2 = new Date();
   startAt = new Date();
@@ -39,10 +52,7 @@ export class ReservarComponent implements AfterViewChecked{
   //displayedColumns: string[] = ['hora', 'visitantes'];
   displayedColumns: string[] = ['hora', 'disponibilidad'];
 
-  constructor(private dateAdapter: DateAdapter<Date>, public database: Database, public authService: AuthService, private router: Router){
-    if(!authService.isLoggedIn()){
-      this.router.navigate(['/']);
-    }
+  constructor(private dateAdapter: DateAdapter<Date>, public database: Database, public authService: AuthService, private router: Router, public emailService: EmailService){
     this.dateAdapter.setLocale('es-mx');
     onValue(ref(this.database, 'reservations/'), (snapshot) => {
       if(snapshot.val() != null){
@@ -195,8 +205,24 @@ export class ReservarComponent implements AfterViewChecked{
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.error("Lo sentimos, una cita ya existe registrada.");
     } else {
-      /*reservations.push(this.registro);
-      localStorage.setItem('reservations', JSON.stringify(reservations));*/
+      //reservations.push(this.registro);
+      //localStorage.setItem('reservations', JSON.stringify(reservations));
+
+      // Mandamos correo al usuario logueado
+
+      this.datos.email = this.authService.user?.email ?? '';
+      this.datos.nombre = this.registro.nombre;
+      this.datos.hora = this.registro.hora;
+      this.datos.diaNum = this.registro.diaNum;
+      this.datos.visitantes = this.registro.visitantes;
+
+      this.emailService.sendReservation(this.datos).subscribe(() => {
+        this.correoEnviado = true;
+      });
+
+      if(this.correoEnviado){console.log("El correo de la Reservacion Comenzo su envio");}
+
+
       push(ref(this.database, 'reservations'),{
         cuenta: this.authService.user?.email,
         nombre:this.registro.nombre,
@@ -218,6 +244,7 @@ export class ReservarComponent implements AfterViewChecked{
     this.reservations = reservationsString ? JSON.parse(reservationsString): [];
   }*/
 }
+
 interface Tabla{
   hora:number,
   //visitantes:number,
@@ -233,4 +260,14 @@ interface Registro{
   dia:string,
   mes:string,
   año:number
+}
+
+interface DatosReserva{
+  nombre:string,
+  hora:number,
+  visitantes:number,
+  diaNum:number,
+  mes:string,
+  año:number,
+  email: string
 }
