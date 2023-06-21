@@ -1,16 +1,19 @@
 import { formatDate } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Database, onValue, push, ref, set } from '@angular/fire/database';
 import * as alertifyjs from 'alertifyjs';
+import { AuthService } from '../auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservar',
   templateUrl: './reservar.component.html',
   styleUrls: ['./reservar.component.css']
 })
-export class ReservarComponent{
+export class ReservarComponent implements AfterViewChecked{
   registro: Registro = {
+    cuenta:'',
     nombre:'',
     hora:0,
     visitantes:0,
@@ -36,7 +39,10 @@ export class ReservarComponent{
   //displayedColumns: string[] = ['hora', 'visitantes'];
   displayedColumns: string[] = ['hora', 'disponibilidad'];
 
-  constructor(private dateAdapter: DateAdapter<Date>, public database: Database){
+  constructor(private dateAdapter: DateAdapter<Date>, public database: Database, public authService: AuthService, private router: Router){
+    if(!authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
     this.dateAdapter.setLocale('es-mx');
     onValue(ref(this.database, 'reservations/'), (snapshot) => {
       if(snapshot.val() != null){
@@ -69,6 +75,12 @@ export class ReservarComponent{
     }
     console.log(this.horasDisp);
     console.log(this.tabla);*/
+  }
+
+  ngAfterViewChecked(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
   }
 
   resetTabla(){
@@ -186,6 +198,7 @@ export class ReservarComponent{
       /*reservations.push(this.registro);
       localStorage.setItem('reservations', JSON.stringify(reservations));*/
       push(ref(this.database, 'reservations'),{
+        cuenta: this.authService.user?.email,
         nombre:this.registro.nombre,
         hora:this.registro.hora,
         visitantes:this.registro.visitantes,
@@ -212,6 +225,7 @@ interface Tabla{
 }
 
 interface Registro{
+  cuenta:string,
   nombre:string,
   hora:number,
   visitantes:number,

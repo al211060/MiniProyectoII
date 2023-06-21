@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { Database, onValue, ref, remove, set } from '@angular/fire/database';
+import { AuthService } from '../auth-service.service';
+import { Router } from '@angular/router';
+import * as alertifyjs from 'alertifyjs';
 
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
   styleUrls: ['./reporte.component.css']
 })
-export class ReporteComponent {
+export class ReporteComponent implements AfterViewChecked{
   reservaciones!:any[];
   reservacionesAux!:any[];
 
-  constructor(public database: Database){
+  constructor(public database: Database, public authService: AuthService, private router: Router){
+    if(!authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
     /*const reservationsString = localStorage.getItem('reservations');
     this.reservaciones = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];*/
     onValue(ref(this.database, 'reservations/'), (snapshot) => {
@@ -51,16 +57,44 @@ export class ReporteComponent {
         nombre:r.nombre,
         visitantes:r.visitantes,
         timestamp: new Date(fechaR!).getTime()/1000,
-        key: aux[reservations.indexOf(r)]
+        key: aux[reservations.indexOf(r)],
+        cuenta: r.cuenta
       });
     }
+    temp.sort((a, b) => a.timestamp - b.timestamp);
+
+    /*console.log("isLoggedIn "+this.authService.isLoggedIn());
+    console.log("isAdmin "+this.authService.isAdmin());
+    console.log("User email "+this.authService.user?.email);*/
+    console.log(this.authService.user);
+    
+    if(this.authService.isLoggedIn() && !this.authService.isAdmin()){
+      //console.log(temp);
+      for(let t of temp){
+        //console.log("T cuenta "+t.cuenta);
+        //console.log("index "+temp.indexOf(t));
+        if(this.authService.user?.email != t.cuenta){
+          //console.log(temp[temp.indexOf(t)]);
+          temp.splice(temp.indexOf(t),1);
+        }
+        //console.log("continua despues de if");
+      }
+      //console.log("sale del for")
+    }
     //console.log(temp);
-    return temp.sort((a, b) => a.timestamp - b.timestamp);
+    return temp;
+  }
+
+  ngAfterViewChecked(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
   }
 
   eliminarCita(key:number){
     remove(ref(this.database, 'reservations/'+key));
     //set(ref(this.database, 'reservations/'),this.reservaciones);
-    alert("Cita eliminada");
+      alertifyjs.set("notifier","position","top-center");
+      alertifyjs.warning("La reservación se ha cancelado");
   }
 }

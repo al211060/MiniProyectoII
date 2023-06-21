@@ -1,7 +1,7 @@
 <div>
-  <img [src]="qrCodeData" alt="QR Code"> <br><br>
-</div>
-<br>
-<div>
-  <button (click)="getRandomAnimeTitle()">Generate New QR Code</button>
+  <p>No tienes nada que ver, escanea el codigo QR para descubrir un anime elegido para ti</p>
+  <div class="codigo">
+    <img [src]="qrCodeData" alt="QR Code">
+    <button class="btn btn-secondary" (click)="getRandomAnimeTitle()">Generar Codigo Nuevo</button>
+  </div>
 </div>

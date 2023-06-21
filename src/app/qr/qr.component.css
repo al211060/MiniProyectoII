@@ -1,0 +1,9 @@
+.codigo{
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+button{
+    font-size: 1.5rem;
+}

@@ -12,7 +12,7 @@ export class HomeComponent {
   quote3:any;
 
   constructor(private http: HttpClient){
-    this.getQuote().subscribe(
+    /*this.getQuote().subscribe(
       (result:any) => {
         this.quote1 = result.quote;
       },
@@ -48,7 +48,7 @@ export class HomeComponent {
         }
       }
     );
-    console.log(this.quote1+" "+this.quote2+" "+this.quote3);
+    console.log(this.quote1+" "+this.quote2+" "+this.quote3);*/
   }
 
   getQuote(){

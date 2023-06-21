@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductosService } from '../productos.service';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../auth-service.service';
 
 
 interface Product {
@@ -21,7 +22,7 @@ interface Product {
 
 
 
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewChecked {
   
   products: Product[] = [];
   productId: number = 0;
@@ -38,9 +39,17 @@ export class ProductsComponent implements OnInit {
     precioSugerido: 0
   };
   
-  constructor(private productosService: ProductosService,
-    private router: Router,
-    private http: HttpClient) { }
+  constructor(private productosService: ProductosService, private http: HttpClient, public authService: AuthService, private router: Router){
+      if(!authService.isLoggedIn()){
+        this.router.navigate(['/']);
+      } 
+    }
+
+    ngAfterViewChecked(){
+      if(!this.authService.isLoggedIn()){
+        this.router.navigate(['/']);
+      }
+    }
 
   ngOnInit(): void {
     this.fetchProducts();

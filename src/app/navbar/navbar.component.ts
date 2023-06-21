@@ -5,6 +5,9 @@ import * as alertifyjs from 'alertifyjs';
 import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Database, onValue, push, ref } from '@angular/fire/database';
+import { PhoneAuthProvider, RecaptchaVerifier } from '@angular/fire/auth';
+import { getAuth } from '@firebase/auth';
+import { NgOtpInputComponent } from 'ng-otp-input';
 
 
 @Component({
@@ -15,6 +18,22 @@ import { Database, onValue, push, ref } from '@angular/fire/database';
 export class NavbarComponent {
   @ViewChild('signInModal', {static: false}) signInModal!: ElementRef;
   @ViewChild('regModal', {static: false}) regModal!: ElementRef;
+  @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput!:NgOtpInputComponent;
+  @ViewChild('otpRE', { static: false}) otpRE!:NgOtpInputComponent;
+  
+  recaptchaVerifier:any;
+  confimationResults:any
+  config ={
+    allowNumbersOnly:true,
+    length: 6,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '',
+    inputStyles: {
+      width: '50px',
+      height: '50px'
+    }
+  }
 
   usuarios:any[] = [];
   usuariosAux:any[] = [];
@@ -72,6 +91,8 @@ export class NavbarComponent {
     this.userForm.controls['cPassword'].addValidators(
       this.match( this.userForm.controls['password'], this.userForm.controls['cPassword'])
     );
+    
+    console.log(this.confimationResults)
   }
 
   match(control1 : AbstractControl, control2 : AbstractControl){
@@ -95,6 +116,10 @@ export class NavbarComponent {
           alertifyjs.set("notifier","position","top-center");
           alertifyjs.success("Inicio de sesión exitoso");
           this.signInModal.nativeElement.dispatchEvent(new MouseEvent('click'));
+          this.mailGroup.reset({
+            email:'',
+            password:''
+          })
           this.router.navigate(['/']); // Navega a la página de inicio si el inicio de sesión es exitoso
         }else{
           this.loginError = true;
@@ -127,13 +152,21 @@ export class NavbarComponent {
         correo:this.userForm.value.email,
         telefono:this.userForm.value.phone
       });
+      var tempP = this.userForm.value.phone;
       //this.authService.register(usuario).then(()=> alert("Usuario registrado")).catch((e)=> console.log(e.message));
       this.authService.signUp(this.userForm.value.email!, this.userForm.value.password!)
       .then(() => {
-        alertifyjs.set("notifier","position","top-center");
-        alertifyjs.success("Cuenta registrada, Bienvenid@");
-        this.regModal.nativeElement.dispatchEvent(new MouseEvent('click'));
-        this.router.navigate(['/']); // Navega a la página de inicio
+        this.setRecaptcha()
+        this.recaptchaVerifier = new RecaptchaVerifier("captcha",{size: 'invisible'},getAuth());
+        this.authService.user?.linkWithPhoneNumber("+52"+this.userForm.value.phone!,this.recaptchaVerifier).then((confimationResults) =>{
+          this.confimationResults = confimationResults;
+          console.log(this.confimationResults)
+          //this.onREOtpChange();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        this.codeHidden = false;
       })
       .catch(error => {
         console.log('Error al registrarse', error);
@@ -143,32 +176,72 @@ export class NavbarComponent {
       alertifyjs.set("notifier","position","top-center");
       alertifyjs.error("Ya existe una cuenta con ese correo");
     }
-
-    this.userForm.reset({
-      name:'',
-      email:'',
-      password:'',
-      phone:''
-    });
   }
 
   loginPhone(){
-    /*var captcha = new RecaptchaVerifier("captcha",{size: 'invisible'},getAuth());
-    this.authService.loginPhone("+52"+this.phoneGroup.value.phone!,captcha).then((confimationResults) =>{
+    this.setRecaptcha()
+    this.recaptchaVerifier = new RecaptchaVerifier("captcha",{size: 'invisible'},getAuth());
+    
+    this.authService.loginPhone("+52"+this.phoneGroup.value.phone!,this.recaptchaVerifier).then((confimationResults) =>{
       this.codeHidden = false
       this.id = confimationResults.verificationId;
     }).catch((e)=>console.log(e.message));
-    this.resetForms();
-    console.log("Inicio de sesion por SMS");*/
+    alertifyjs.set("notifier","position","top-center");
+    alertifyjs.success("Codigo enviado");
   }
 
-  verify(){
-    /*var credentials = PhoneAuthProvider.credential(this.id,this.codeCheck.toString());
-    this.authService.signWithCredentials(credentials).then((response) =>{
-      console.log(response);
-      this.codeHidden = true;
-      alert("Inicio de sesion por SMS exitoso");
-    })*/
+  onOtpChange(code:any){
+    if(code.length == 6){
+      var credentials = PhoneAuthProvider.credential(this.id,code.toString());
+      this.authService.signWithCredentials(credentials).then((response) =>{
+        console.log(response);
+        this.codeHidden = true;
+        this.resetForms();
+        this.ngOtpInput.setValue(0);
+        alertifyjs.set("notifier","position","top-center");
+        alertifyjs.success("Inicio de sesion exitoso");
+        this.signInModal.nativeElement.dispatchEvent(new MouseEvent('click'));
+        this.router.navigate(['/']);
+      }).catch(error => {
+        alertifyjs.set("notifier","position","top-center");
+        alertifyjs.error("Codigo incorrecto");
+      });
+    }
+  }
+
+  onREOtpChange(code:any){
+    if(code.length == 6){ 
+      console.log(this.otpRE.currentVal);
+      console.log(this.otpRE.currentVal.length);
+      this.confimationResults.confirm(code).then(() =>{
+        alertifyjs.set("notifier","position","top-center");
+        alertifyjs.success("Cuenta registrada, Bienvenid@");
+        this.otpRE.setValue(0)
+        this.codeHidden = true;
+        this.showRE = true;
+        this.userForm.reset({
+          name:'',
+          email:'',
+          password:'',
+          phone:''
+        });
+        this.regModal.nativeElement.dispatchEvent(new MouseEvent('click'));
+        this.router.navigate(['/']); // Navega a la página de inicio
+      })
+      .catch((e: { message: any; }) => {
+        console.log(e.message)
+        alertifyjs.set("notifier","position","top-center");
+        alertifyjs.error("Codigo incorrecto");
+      });
+    }
+  }
+
+  setRecaptcha() {
+    if (this.recaptchaVerifier && ('clear' in this.recaptchaVerifier)) {
+      console.log('Clearing recaptcha');
+      this.recaptchaVerifier.clear();
+      document.getElementById('capchaContainer')!.innerHTML = '<div id=\'captcha\'></div>';
+    }
   }
 
   passwordLI(){

@@ -54,6 +54,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { FaqComponent } from './faq/faq.component';
 import { QRComponent } from './qr/qr.component';
 import { EmailService } from './email.service';
+import { NgOtpInputModule } from  'ng-otp-input';
 
 
 const firebaseConfig = {
@@ -92,6 +93,7 @@ const firebaseConfig = {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgOtpInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTabsModule,

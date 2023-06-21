@@ -24,7 +24,7 @@ export class QRComponent implements OnInit {
       const randomIndex = Math.floor(Math.random() * animeList.length);
       const animeTitle = animeList[randomIndex].attributes.titles.en;
 
-      this.generateQRCode(animeTitle);
+      this.generateQRCode("Un anime para ti: "+animeTitle);
     });
   }
 

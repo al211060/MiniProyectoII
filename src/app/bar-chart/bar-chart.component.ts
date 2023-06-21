@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Database, onValue, ref, remove, set } from '@angular/fire/database';
 import { getFirestore, collection, doc, getDoc } from 'firebase/firestore/lite';
 import Chart from 'chart.js/auto';
 import { initializeApp } from 'firebase/app';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth-service.service';
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })
-export class BarChartComponent /*implements OnInit*/ {
+export class BarChartComponent implements OnInit, AfterViewChecked{
   reservaciones!:any[];
   reservacionesAux!:any[];
 
@@ -19,7 +21,10 @@ export class BarChartComponent /*implements OnInit*/ {
   diaVal!:Dias;
   hrsVal!:Horas;
 
-  constructor(public database: Database){
+  constructor(public database: Database, public authService: AuthService, private router: Router){
+    if(!authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
     /*const reservationsString = localStorage.getItem('reservations');
     this.reservaciones = reservationsString ? this.reservationsTransform(JSON.parse(reservationsString)): [];*/
     onValue(ref(this.database, 'reservations/'), (snapshot) => {
@@ -31,6 +36,16 @@ export class BarChartComponent /*implements OnInit*/ {
       });
       this.crearGraficas();
     });
+  }
+
+  ngAfterViewChecked(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/']);
+    }
+  }
+
+  ngOnInit(){
+    this.crearGraficas();
   }
 
   crearGraficas(){
