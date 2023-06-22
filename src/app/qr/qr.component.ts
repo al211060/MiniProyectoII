@@ -16,6 +16,7 @@ export class QRComponent implements OnInit {
     this.getRandomAnimeTitle();
   }
 
+  /*
   getRandomAnimeTitle() {
     const apiUrl = 'https://kitsu.io/api/edge/anime';
 
@@ -25,6 +26,14 @@ export class QRComponent implements OnInit {
       const animeTitle = animeList[randomIndex].attributes.titles.en;
 
       this.generateQRCode("Un anime para ti: "+animeTitle);
+    });
+  }
+  */
+
+  getRandomAnimeTitle() {
+    const randomIndex = Math.floor(Math.random() * 47637);
+    this.http.get<any>('https://api280623-production.up.railway.app/qr/'+randomIndex, { responseType: 'text' as 'json'}).subscribe(response => {
+      this.generateQRCode("Un anime para ti: "+response);
     });
   }
 
